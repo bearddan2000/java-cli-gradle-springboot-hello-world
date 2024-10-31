@@ -1,7 +1,11 @@
-FROM vanto/apache-buildr:latest-jruby-jdk8
+FROM gradle:7.6.4-jdk11-alpine
 
-WORKDIR /workspace
+WORKDIR /app
 
-COPY  bin/ .
+ADD --chown=gradle:gradle bin .
 
-CMD ["run"]
+RUN chmod -R +x *
+
+ENTRYPOINT ["gradle"]
+
+CMD ["build", "bootRun"]
